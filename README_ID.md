@@ -1,26 +1,26 @@
 # DesKaOne SDK Python
 
-[Versi Bahasa Indonesia](README_ID.md)
+[English version](README.md)
 
-Async Python foundation for DesKaOne SDK networking. Phase 1 includes direct TCP/TLS, HTTP CONNECT, SOCKS4/SOCKS4a, SOCKS5, a manual HTTP/1.1 client, a manual WebSocket client, reconnect helpers, and lightweight utilities. Storage and database features are intentionally not included yet.
+Fondasi Python async untuk jaringan DesKaOne SDK. Phase 1 mencakup TCP/TLS langsung, HTTP CONNECT, SOCKS4/SOCKS4a, SOCKS5, client HTTP/1.1 manual, client WebSocket manual, helper reconnect, dan utilitas ringan. Fitur storage dan database belum diimplementasikan pada fase ini.
 
-## Features
+## Fitur
 
-- Python 3.11+ and `asyncio`.
-- Zero runtime dependencies.
-- Manual TCP, HTTP/1.1, and WebSocket implementation over asyncio streams.
-- HTTP, SOCKS4/SOCKS4a, and SOCKS5 proxy support.
-- Direct HTTP/HTTPS and WebSocket `ws`/`wss` clients.
-- Reconnecting WebSocket wrapper.
-- Utility helpers for bytes, debouncing, events, terminal colors, and logging.
+- Python 3.11+ dan `asyncio`.
+- Tanpa dependency runtime.
+- Implementasi TCP, HTTP/1.1, dan WebSocket manual di atas asyncio streams.
+- Dukungan proxy HTTP, SOCKS4/SOCKS4a, dan SOCKS5.
+- Client HTTP/HTTPS langsung dan WebSocket `ws`/`wss`.
+- Wrapper WebSocket dengan reconnect otomatis.
+- Utilitas bytes, debouncer, event emitter, warna terminal, dan logger.
 
-## Install
+## Instalasi
 
 ```bash
 python -m pip install deskaone-sdk-python
 ```
 
-For local development:
+Untuk pengembangan lokal:
 
 ```bash
 python -m pip install -e ".[dev]"
@@ -32,7 +32,7 @@ python -m pip install -e ".[dev]"
 from deskaone_sdk import HttpClient, ProxyConfig, WebSocketClient
 ```
 
-## HTTP direct example
+## Contoh HTTP langsung
 
 ```python
 import asyncio
@@ -45,7 +45,7 @@ async def main():
 asyncio.run(main())
 ```
 
-## HTTP over proxy example
+## Contoh HTTP melalui proxy
 
 ```python
 from deskaone_sdk import HttpClient, ProxyConfig
@@ -54,7 +54,7 @@ proxy = ProxyConfig.from_url_string("http://proxy.example:8080")
 client = HttpClient(proxy_config=proxy)
 ```
 
-## HTTPS over proxy example
+## Contoh HTTPS melalui proxy
 
 ```python
 from deskaone_sdk import HttpClient, ProxyConfig
@@ -63,7 +63,7 @@ proxy = ProxyConfig.from_url_string("socks5://proxy.example:1080")
 response = await HttpClient(proxy_config=proxy).get("https://example.com/")
 ```
 
-## WebSocket wss example
+## Contoh WebSocket wss
 
 ```python
 ws = await WebSocketClient.connect("wss://ws.postman-echo.com/raw")
@@ -72,14 +72,14 @@ message = await ws.recv()
 await ws.close()
 ```
 
-## WebSocket wss over proxy example
+## Contoh WebSocket wss melalui proxy
 
 ```python
 proxy = ProxyConfig.from_url_string("socks5://proxy.example:1080")
 ws = await WebSocketClient.connect("wss://ws.postman-echo.com/raw", proxy_config=proxy)
 ```
 
-## Reconnect WebSocket example
+## Contoh Reconnect WebSocket
 
 ```python
 from deskaone_sdk import ReconnectWebSocketClient
@@ -88,16 +88,16 @@ client = ReconnectWebSocketClient("wss://ws.postman-echo.com/raw", reconnect_del
 await client.run()
 ```
 
-## PROXY_URL environment example
+## Contoh environment PROXY_URL
 
 ```bash
 export PROXY_URL='socks5://proxy.example:1080'
 python examples/http_client_example.py
 ```
 
-Security warning: never hardcode proxy credentials, API keys, tokens, or passwords. Read secrets from environment variables or a dedicated secret manager.
+Peringatan keamanan: jangan pernah menulis kredensial proxy, API key, token, atau password langsung di kode. Gunakan environment variable atau secret manager.
 
-## Reference SDKs
+## SDK Referensi
 
 - Go SDK: <https://github.com/DesKaOne/deskaone-sdk>
 - Dart SDK: <https://github.com/DesKaOne/deskaone-sdk-dart>
